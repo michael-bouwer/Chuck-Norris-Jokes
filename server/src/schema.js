@@ -1,20 +1,26 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-  type Category {
-    name: String
-  }
 
   type Joke {
-    icon_url: String
-    id: String!
+    categories: [String],
+    created_at: String,
+    icon_url: String,
+    updated_at: String,
+    id: String
     url: String
     value: String
   }
 
+  type SearchResults {
+    total: Int,
+    result: [Joke]
+  }
+
   type Query {
-    categories: [Category],
+    categories: [String],
     randomJoke (category: String!): Joke
+    searchJoke (searchText: String!): SearchResults
   }
 `;
 

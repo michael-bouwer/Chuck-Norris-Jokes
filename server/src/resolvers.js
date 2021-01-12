@@ -8,7 +8,13 @@ const resolvers = {
 
     randomJoke: async (_, { category }, { dataSources }) => {
       return dataSources.ChuckNorrisAPI.getJokeByCategory({
-        category: category,
+        category,
+      });
+    },
+
+    searchJoke: async (_, { searchText }, { dataSources }) => {
+      return dataSources.ChuckNorrisAPI.getSearchResults({
+        searchText,
       });
     },
   },

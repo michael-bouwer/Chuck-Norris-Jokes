@@ -5,26 +5,21 @@ class ChuckNorrisAPI extends RESTDataSource {
     super();
     this.baseURL = "https://api.chucknorris.io/jokes/";
   }
-
-  categoryReducer(categories) {
-    let arrayOfCategories = [];
-    categories.forEach((category) => {
-      arrayOfCategories.push({
-        name: category,
-      });
-    });
-
-    return arrayOfCategories;
-  }
-
+  
   async getCategories() {
     const allCategories = await this.get("categories");
 
-    return this.categoryReducer(allCategories);
+    return allCategories;
   }
 
   async getJokeByCategory({ category }) {
     return this.get(`random?category=${category}`);
+  }
+
+  async getSearchResults({ searchText }) {
+    const searchResults = await this.get(`search?query=${searchText}`);
+
+    return searchResults;
   }
 }
 
