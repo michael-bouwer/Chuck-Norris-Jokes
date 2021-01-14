@@ -1,7 +1,7 @@
 import { FC, ReactElement, useContext } from "react";
 import { AppContext } from "../App";
 import { gql, useQuery } from "@apollo/client";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
 const GET_CATEGORIES = gql`
@@ -10,17 +10,31 @@ const GET_CATEGORIES = gql`
   }
 `;
 
-const Container = styled.div``;
+const slideIn = keyframes`
+    0% {
+        transform: translateY(+10%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+`;
+
+const Container = styled.div`
+  animation: ${slideIn} 0.35s ease-out;
+`;
 
 const Button = styled.div`
   display: inline-block;
+  position: relative;
   margin: 4px 4px;
   padding: 6px 20px;
   color: black;
   text-align: center;
   font-size: 14px;
   font-weight: 400;
-  width: 100px;
+  width: 200px;  
   border-radius: 4px;
   border-width: 1px;
   border-style: solid;
