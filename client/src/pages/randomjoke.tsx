@@ -7,7 +7,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { ReactComponent as Loading } from "../assets/svg/loading.svg";
 import { ReactComponent as Refresh } from "../assets/svg/refresh.svg";
 import { ReactComponent as GoBack } from "../assets/svg/back.svg";
-import moment from "moment";
 
 const GET_RANDOM_JOKE = gql`
   query GetRandomJokeByCategory($category: String!) {
@@ -15,9 +14,9 @@ const GET_RANDOM_JOKE = gql`
       # categories
       # created_at
       # updated_at
-      # icon_url
+      icon_url
       # id
-      # url
+      url
       value
     }
   }
@@ -86,6 +85,9 @@ const RandomJoke: FC = (): ReactElement => {
       fetchPolicy: "no-cache",
     }
   );
+
+  if (error) return <p>error connecting to api</p>;
+
   return (
     <Container>
       <Heading>
@@ -113,16 +115,31 @@ const RandomJoke: FC = (): ReactElement => {
               style={{
                 justifyContent: "center",
                 textAlign: "center",
+                flexDirection: "column",
               }}
             >
-              <Col xs={6}>{data.randomJoke.value}</Col>
-            </Row>
-            <Row
-              className="m-4 d-flex"
-              style={{
-                justifyContent: "center",
-              }}
-            >
+              {data.randomJoke.icon_url ? (
+                <Row style={{ flexDirection: "row", justifyContent: "center" }}>
+                  <Col xs={6}>
+                    <img src={data.randomJoke.icon_url} alt="icon" />
+                  </Col>
+                </Row>
+              ) : null}
+              <Row style={{ flexDirection: "row", justifyContent: "center" }}>
+                <Col xs={6}>{data.randomJoke.value}</Col>
+              </Row>
+              <Row style={{ flexDirection: "row", justifyContent: "center" }}>
+                <Col xs={6}>
+                  <a
+                    style={{ fontSize: "12px" }}
+                    href={data.randomJoke.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    external link
+                  </a>
+                </Col>
+              </Row>
             </Row>
           </>
         )}

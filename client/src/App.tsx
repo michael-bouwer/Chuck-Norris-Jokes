@@ -1,5 +1,5 @@
-import { createContext, useState, useReducer } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { createContext, useReducer } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import {
   ApolloClient,
   NormalizedCacheObject,
@@ -10,7 +10,6 @@ import {
 import Header from "./components/header";
 import Categories from "./pages/categories";
 import RandomJoke from "./pages/randomjoke";
-import { convertTypeAcquisitionFromJson } from "typescript";
 
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
