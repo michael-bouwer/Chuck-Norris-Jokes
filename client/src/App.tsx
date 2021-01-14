@@ -56,25 +56,10 @@ function App() {
       <div className="App">
         <Header />
         <Router>
-          <div>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">Categories</Link>
-                </li>
-                <li>
-                  <Link to="/randomjoke">First Product</Link>
-                </li>
-                <li>
-                  <Link to="/products/2">Second Product</Link>
-                </li>
-              </ul>
-            </nav>
-            <AppContext.Provider value={value}>
-              <Route path="/" exact component={Categories} />
-              <Route path="/randomjoke" component={RandomJoke} />
-            </AppContext.Provider>
-          </div>
+          <AppContext.Provider value={value}>
+            <Route path="/" exact component={Categories} />
+            <Route path="/randomjoke" component={RandomJoke} />
+          </AppContext.Provider>
         </Router>
       </div>
     </ApolloProvider>

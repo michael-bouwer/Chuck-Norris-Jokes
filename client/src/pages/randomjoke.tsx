@@ -25,9 +25,9 @@ const RandomJoke: FC = (): ReactElement => {
     {
       variables: { category: category },
       notifyOnNetworkStatusChange: true,
+      fetchPolicy: "no-cache",
     }
   );
-  if (data) console.log(data);
   return (
     <div>
       <span>
@@ -37,7 +37,13 @@ const RandomJoke: FC = (): ReactElement => {
       </span>
       <p>Random Joke from {category}</p>
       <span>
-        <button onClick={() => refetch()}>another</button>
+        <button
+          onClick={() => {
+            return refetch();
+          }}
+        >
+          another
+        </button>
       </span>
       <div>
         {loading || networkStatus === NetworkStatus.refetch ? (

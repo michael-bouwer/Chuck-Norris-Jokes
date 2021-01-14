@@ -17,10 +17,6 @@ h5 {
   max-width: 960px;
   margin: auto;
   min-height: 100vh;
-  background-color: ghostwhite;
-  -webkit-box-shadow: 0px -1px 29px 0px rgba(50, 50, 50, 0.1);
-  -moz-box-shadow: 0px -1px 29px 0px rgba(50, 50, 50, 0.1);
-  box-shadow: 0px -1px 29px 0px rgba(50, 50, 50, 0.1);
 }
 
 .App-logo {
