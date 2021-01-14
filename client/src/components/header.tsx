@@ -1,10 +1,10 @@
 import React, { FC, ReactElement } from "react";
 
-type NavbarProps = {
+type HeaderProps = {
     title?: string,    
 }
 
-const Navbar: FC<NavbarProps> = ({ title }): ReactElement => {
+const Header: FC<HeaderProps> = ({ title }): ReactElement => {
   return (
     <div>
       <p>Nav</p>
@@ -12,4 +12,4 @@ const Navbar: FC<NavbarProps> = ({ title }): ReactElement => {
   );
 };
 
-export default Navbar;
+export default Header;
