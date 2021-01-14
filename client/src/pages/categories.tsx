@@ -3,6 +3,8 @@ import { AppContext } from "../App";
 import { gql, useQuery } from "@apollo/client";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import { ReactComponent as Loading } from "../assets/svg/loading.svg";
 
 const GET_CATEGORIES = gql`
   query GetCategories {
@@ -21,58 +23,82 @@ const slideIn = keyframes`
     }
 `;
 
-const Container = styled.div`
+const ContainerContent = styled.div`
   animation: ${slideIn} 0.35s ease-out;
 `;
 
+const Heading = styled.h3`
+  margin: 15px;
+  text-align: left;
+  font-weight: 500;
+  color: #5d5a45;
+`;
+
 const Button = styled.div`
-  display: inline-block;
-  position: relative;
-  margin: 4px 4px;
-  padding: 6px 20px;
-  color: black;
-  text-align: center;
+  margin: 8px 0;
+  padding: 12px 20px;
+  color: #5d5a45;
+  text-align: left;
   font-size: 14px;
   font-weight: 400;
-  width: 200px;  
   border-radius: 4px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #fda085;
+  background-color: #fbab7e;
+  background-image: linear-gradient(315deg, #fbab7e 0%, #f7ce68 100%);
+  background-color: white;
+  transition: 0.25s all ease;
+  text-decoration: none;
+  transition: all 200ms ease-in-out;
 
   &:hover {
-    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-    cursor: pointer;
+    color: black;
+    background-color: #fbab7e;
+    background-image: linear-gradient(315deg, #fbab7e 0%, #f7ce68 100%);
+
+    position: relative;
+    &:before {
+      z-index: -1;
+      position: absolute;
+      content: "";
+      bottom: 13px;
+      right: 7px;
+      width: 75%;
+      top: 0;
+      box-shadow: 0 15px 10px #777;
+      transform: rotate(4deg);
+      transition: all 150ms ease-in-out;
+    }
   }
 
   &:active {
-    transform: scale(0.95);
+    background-color: gainsboro;
   }
 `;
 
 const Categories: FC = (): ReactElement => {
   const { loading, error, data } = useQuery(GET_CATEGORIES);
   return (
-    <div>
-      <p>Catgories</p>
+    <Container>
+      <Heading>Categories</Heading>
       {error ? (
         <p>{error}</p>
       ) : loading ? (
-        <p>loading...</p>
+        <Loading />
       ) : data ? (
-        <Container>
-          {data.categories.map((category: string) => {
-            return (
-              <CategoryButton key={category} name={category}>
-                {category}
-              </CategoryButton>
-            );
-          })}
-        </Container>
+        <ContainerContent>
+          <Row className="m-0">
+            {data.categories.map((category: string) => {
+              return (
+                <CategoryButton key={category} name={category}>
+                  {category}
+                </CategoryButton>
+              );
+            })}
+          </Row>
+        </ContainerContent>
       ) : (
         <p>no data</p>
       )}
-    </div>
+    </Container>
   );
 };
 
@@ -83,15 +109,17 @@ interface CategoryButtonProps {
 const CategoryButton: FC<CategoryButtonProps> = ({ name }) => {
   const { setCategory } = useContext(AppContext);
   return (
-    <Link to="/randomjoke">
-      <Button
-        onClick={() => {
-          setCategory(name);
-        }}
-      >
-        {name}
-      </Button>
-    </Link>
+    <Col xs={12} sm={6} md={3}>
+      <Link to="/randomjoke">
+        <Button
+          onClick={() => {
+            setCategory(name);
+          }}
+        >
+          {name}
+        </Button>
+      </Link>
+    </Col>
   );
 };
 

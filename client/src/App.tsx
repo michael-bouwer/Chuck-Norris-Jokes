@@ -7,7 +7,6 @@ import {
   ApolloProvider,
 } from "@apollo/client";
 
-import "./App.css";
 import Header from "./components/header";
 import Categories from "./pages/categories";
 import RandomJoke from "./pages/randomjoke";
